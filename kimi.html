@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8">
+  <title>Elementet Kryesore</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: white;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    header h1 {
+      font-size: 3em;
+      margin: 0;
+      letter-spacing: 2px;
+    }
+
+    header p {
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+.intro-section {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 40px;
+      gap: 30px;
+    }
+
+    .intro-text {
+      flex: 1;
+      max-width: 60%;
+      text-align: justify;
+    }
+
+    .intro-image {
+      flex: 1;
+      max-width: 35%;
+    }
+
+    .intro-image img {
+      width: 90%;
+      border-radius: 10px;
+      border: 2px solid #2a5298;
+    }
+    .periodic-theme {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 15px;
+      padding: 40px;
+    }
+
+    .element-box {
+      background: #e3eaf2;
+      border: 2px solid #2a5298;
+      border-radius: 8px;
+      text-align: center;
+      padding: 20px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .element-box:hover {
+      transform: scale(1.05);
+      background: #d6e0f0;
+    }
+
+    .symbol {
+      font-size: 2em;
+      font-weight: bold;
+      color: #2a5298;
+    }
+
+    .name {
+      font-size: 1em;
+      margin-top: 5px;
+    }
+
+    /* Modal */
+    .modal {
+      display: none; 
+      position: fixed; 
+      z-index: 1; 
+      left: 0;
+      top: 0;
+      width: 100%; 
+      height: 100%; 
+      overflow: auto; 
+      background-color: rgba(0,0,0,0.6);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border: 2px solid #2a5298;
+      border-radius: 10px;
+      width: 60%;
+      text-align: center;
+    }
+
+    .close {
+      color: #2a5298;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<header>
+    <h1>Elementet Kimike në Trupin e Njeriut</h1>
+    <p>Një udhëtim shkencor për të zbuluar rolin e elementeve në trupin tonë</p>
+  </header>
+<ul>
+ <div class="intro-section">
+    <div class="intro-text">
+      <li><h3>Pse është e rëndësishme të dimë për elementet kimike në trupin e njeriut?</h3></li>
+      <p>Elementet kimike në trupin e njeriut janë themeli i jetës, sepse ato marrin pjesë në çdo proces biologjik që na mban gjallë. Oksigjeni siguron frymëmarrjen dhe prodhimin e energjisë, karboni ndërton molekulat organike si proteinat dhe karbohidratet, ndërsa hidrogjeni dhe azoti janë pjesë e ADN-së dhe strukturave qelizore. Mineralet si kalciumi, hekuri dhe jodi mbështesin kockat, gjakun dhe hormonet. Njohja e tyre është e rëndësishme sepse na ndihmon të kuptojmë si funksionon organizmi, të ndërtojmë një dietë të shëndetshme dhe të parandalojmë sëmundjet që lidhen me mungesën e këtyre elementeve. Në këtë mënyrë, kimia nuk është thjesht një shkencë abstrakte, por një udhërrëfyes i drejtpërdrejtë për mirëqenien tonë.
+      </p>
+    </div>
+    <div class="intro-image">
+      <img src="trupi2.jpg" alt="Tabela periodike">
+    </div>
+  </div>
+<li><h2> Elementet kryesore:</h2></li>
+<p>Elementet kryesore në trupin e njeriut janë oksigjeni, karboni, hidrogjeni dhe azoti. Këto përbëjnë bazën e jetës, sepse oksigjeni siguron energjinë për qelizat, karboni ndërton molekulat organike si proteinat dhe ADN-ja, hidrogjeni ruan ekuilibrin kimik dhe është pjesë e ujit, ndërsa azoti është i domosdoshëm për sintezën e proteinave dhe materialit gjenetik. Pa këto elemente, organizmi nuk mund të funksionojë, prandaj ato janë themeli i strukturës, energjisë dhe trashëgimisë biologjike të trupit tonë.</p>
+<section class="periodic-theme">
+  <div class="element-box" onclick="showInfo('O')">
+    <div class="symbol">O</div>
+    <div class="name">Oksigjen</div>
+  </div>
+  <div class="element-box" onclick="showInfo('C')">
+    <div class="symbol">C</div>
+    <div class="name">Karbon</div>
+  </div>
+  <div class="element-box" onclick="showInfo('H')">
+    <div class="symbol">H</div>
+    <div class="name">Hidrogjen</div>
+  </div>
+  <div class="element-box" onclick="showInfo('N')">
+    <div class="symbol">N</div>
+    <div class="name">Azot</div>
+  </div>
+</section>
+
+
+<div id="infoModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2 id="elementTitle"></h2>
+    <p id="elementInfo"></p>
+    <img id="elementImage" src="" alt="Foto e elementit" class="element-img">
+  </div>
+</div>
+
+<style>
+   .element-img {
+    margin-top: 20px;
+    width: 40%;
+    border-radius: 10px;
+    border: 2px solid #2a5298;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+<script>
+  function showInfo(symbol) {
+    let title = "";
+    let info = "";
+ let imgSrc = "";
+
+    switch(symbol) {
+      case "O":
+        title = "Oksigjen (O)";
+        info = "Oksigjeni është elementi më i bollshëm në trupin e njeriut dhe përdoret kryesisht në frymëmarrjen qelizore, ku ndihmon në prodhimin e energjisë (ATP) që qelizat kanë nevojë për të funksionuar. Rëndësia e tij është jetike, sepse pa oksigjen nuk mund të ndodhin proceset biologjike që mbajnë gjallë organizmin.";
+        imgSrc = "O2.jpg"; 
+document.getElementById("elementImage").src = imgSrc;
+ break;
+      case "C":
+        title = "Karbon (C)";
+        info = "Karboni është skeleti i të gjitha molekulave organike, duke përfshirë proteinat, karbohidratet, yndyrnat dhe ADN-në. Ai përdoret për ndërtimin e strukturave biologjike dhe ruajtjen e energjisë. Rëndësia e tij është themelore, pasi pa karbon nuk do të ekzistonte asnjë formë jete biologjike.";
+imgSrc = "karboni.jpg"; 
+  document.getElementById("elementImage").src = imgSrc;      
+break;
+      case "H":
+        title = "Hidrogjen (H)";
+        info = "Hidrogjeni është pjesë e ujit dhe molekulave biologjike, duke ndihmuar në ruajtjen e ekuilibrit të pH dhe në reaksionet biokimike që ndodhin brenda qelizave. Rëndësia e tij qëndron në faktin se pa hidrogjen nuk mund të kryhen proceset metabolike dhe nuk do të kishte transport të energjisë në organizëm.";
+       imgSrc = "hidrogjen.jpg"; 
+  document.getElementById("elementImage").src = imgSrc;    
+ break;
+      case "N":
+        title = "Azot (N)";
+        info = "Azoti është pjesë e proteinave dhe materialit gjenetik (ADN dhe ARN), duke u përdorur për sintezën e enzimave dhe molekulave që kontrollojnë funksionet qelizore. Rëndësia e tij është e madhe, sepse pa azot nuk do të kishte rritje, riparim të indeve apo trashëgimi biologjike.";
+imgSrc = "azoti.jpg"; 
+  document.getElementById("elementImage").src = imgSrc;            
+break;
+    }
+
+    document.getElementById("elementTitle").innerText = title;
+    document.getElementById("elementInfo").innerText = info;
+    document.getElementById("infoModal").style.display = "block";
+  }
+
+  function closeModal() {
+    document.getElementById("infoModal").style.display = "none";
+  }
+</script>
+
+<li><h2>Mineralet:</h2></li>
+<p>Mineralet kryesore në trupin e njeriut janë thelbësore për strukturën dhe funksionet biologjike. Kalciumi është bazë për kockat dhe dhëmbët, por gjithashtu ndihmon në sinjalet nervore dhe kontraktimin e muskujve. Fosfori është pjesë e ADN-së dhe molekulës së energjisë ATP, duke e bërë të domosdoshëm për ruajtjen e energjisë dhe ndërtimin e skeletit. Kaliumi rregullon balancën e lëngjeve dhe është kritik për funksionimin e zemrës dhe muskujve. Natriumi ndihmon në ekuilibrin e ujit dhe presionin e gjakut, si dhe në transmetimin e impulseve nervore. Ndërsa Magnezi merr pjesë në qindra reaksione enzimatike, duke mbështetur metabolizmin, muskujt dhe sistemin nervor. Pa këto minerale, trupi nuk mund të ruajë ekuilibrin biologjik, energjinë dhe shëndetin e përgjithshëm.</p>
+<section class="periodic-theme">
+  <div class="element-box" onclick="showMineral('Ca')">
+    <div class="symbol">Ca</div>
+    <div class="name">Kalcium</div>
+  </div>
+  <div class="element-box" onclick="showMineral('P')">
+    <div class="symbol">P</div>
+    <div class="name">Fosfor</div>
+  </div>
+  <div class="element-box" onclick="showMineral('K')">
+    <div class="symbol">K</div>
+    <div class="name">Kalium</div>
+  </div>
+  <div class="element-box" onclick="showMineral('Na')">
+    <div class="symbol">Na</div>
+    <div class="name">Natrium</div>
+  </div>
+  <div class="element-box" onclick="showMineral('Mg')">
+    <div class="symbol">Mg</div>
+    <div class="name">Magnez</div>
+  </div>
+</section>
+<div id="mineralModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeMineralModal()">&times;</span>
+    <h2 id="mineralTitle"></h2>
+    <p id="mineralInfo"></p>
+    <img id="mineralImage" src="" alt="Foto e mineralit" class="element-img">
+  </div>
+</div>
+
+<script>
+  function showMineral(symbol) {
+    let title = "";
+    let info = "";
+    let imgSrc = "";
+
+    switch(symbol) {
+      case "Ca":
+        title = "Kalcium (Ca)";
+        info = "Kalciumi përdoret për ndërtimin e kockave dhe dhëmbëve, si dhe për transmetimin e sinjaleve nervore dhe kontraktimin e muskujve. Rëndësia e tij është e madhe, sepse pa kalcium trupi nuk mund të ketë skelet të fortë dhe funksione nervore të rregullta.";
+imgSrc = "kalcium.jpg"; 
+document.getElementById("mineralImage").src = imgSrc;          
+break;
+      case "P":
+        title = "Fosfor (P)";
+        info = "Fosfori është pjesë e ADN-së dhe ARN-së, si dhe i molekulës së energjisë ATP. Ai përdoret për ruajtjen dhe transferimin e energjisë në qeliza. Rëndësia e tij është thelbësore për jetën qelizore dhe për ndërtimin e kockave së bashku me kalciumin.";
+imgSrc = "atp.jpg"; 
+document.getElementById("mineralImage").src = imgSrc;          
+break;
+      case "K":
+        title = "Kalium (K)";
+        info = "Kaliumi ndihmon në balancën e lëngjeve dhe në transmetimin e impulseve nervore, si dhe në funksionimin e muskujve, veçanërisht të zemrës. Rëndësia e tij është kritike, sepse pa kalium zemra dhe sistemi nervor nuk mund të funksionojnë siç duhet.";
+imgSrc = "kalium.jpg"; 
+document.getElementById("mineralImage").src = imgSrc; 
+ break;
+      case "Na":
+        title = "Natrium (Na)";
+        info = "Natriumi përdoret për ruajtjen e ekuilibrit të ujit dhe presionit të gjakut, si dhe për transmetimin e sinjaleve nervore. Rëndësia e tij është e madhe, sepse pa natrium trupi nuk mund të mbajë balancën e lëngjeve dhe funksionet nervore.";
+imgSrc = "Na.jpg"; 
+document.getElementById("mineralImage").src = imgSrc;          
+break;
+      case "Mg":
+        title = "Magnez (Mg)";
+        info = "Magnezi është i përfshirë në qindra reaksione enzimatike, ndihmon në prodhimin e energjisë dhe në kontraktimin e muskujve. Rëndësia e tij është e lartë, sepse pa magnez trupi nuk mund të kryejë proceset metabolike dhe muskujt nuk mund të funksionojnë normalisht.";
+imgSrc = "Mg.jpg"; 
+document.getElementById("mineralImage").src = imgSrc;          
+break;
+      }
+
+    // cakto titullin, tekstin dhe imazhin
+    document.getElementById("mineralTitle").innerText = title;
+    document.getElementById("mineralInfo").innerText = info;
+    document.getElementById("mineralImage").src = imgSrc;
+
+    // hap modalin
+    document.getElementById("mineralModal").style.display = "block";
+  }
+
+  function closeMineralModal() {
+    document.getElementById("mineralModal").style.display = "none";
+  }
+</script>
+<li><h2> Elementet gjurme:</h2></li>
+<p>Elementet gjurmë në trupin e njeriut, edhe pse gjenden në sasi shumë të vogla, janë jashtëzakonisht të rëndësishme për shëndetin. Hekuri është i domosdoshëm për formimin e hemoglobinës dhe transportin e oksigjenit në gjak, duke siguruar energjinë e qelizave. Zinku ndihmon sistemin imunitar, shërimin e plagëve dhe funksionin e enzimave, duke e bërë të rëndësishëm për mbrojtjen dhe zhvillimin e trupit. Jodi është i nevojshëm për prodhimin e hormoneve të tiroides që kontrollojnë metabolizmin dhe rritjen, ndërsa mungesa e tij shkakton çrregullime hormonale. Seleni ka rol antioksidues, duke mbrojtur qelizat nga dëmtimet dhe duke ndihmuar në funksionimin e tiroides dhe sistemit imunitar. Pra, edhe pse janë gjurmë, këto elemente janë jetike për energjinë, imunitetin, metabolizmin dhe mbrojtjen qelizore të organizmit.</p>
+<section class="periodic-theme">
+<div class="element-box" onclick="showTrace('Fe')">
+  <div class="symbol">Fe</div>
+  <div class="name">Hekur</div>
+</div>  
+  <div class="element-box" onclick="showTrace('Zn')">
+    <div class="symbol">Zn</div>
+    <div class="name">Zink</div>
+  </div>
+  <div class="element-box" onclick="showTrace('I')">
+    <div class="symbol">I</div>
+    <div class="name">Jod</div>
+  </div>
+  <div class="element-box" onclick="showTrace('Se')">
+    <div class="symbol">Se</div>
+    <div class="name">Selen</div>
+  </div>
+</section>
+
+<!-- Modal për elementet gjurmë -->
+<div id="traceModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeTraceModal()">&times;</span>
+    <h2 id="traceTitle"></h2>
+    <p id="traceInfo"></p>
+    <img id="traceImage" src="" alt="Foto e elementit gjurmë" class="element-img">
+  </div>
+</div>
+
+<script>
+  function showTrace(symbol) {
+  let title = "";
+  let info = "";
+  let imgSrc = "";
+    switch(symbol) {
+      case "Fe":
+        title = "Hekur (Fe)";
+        info = "Hekuri përdoret për formimin e hemoglobinës, proteinës që transporton oksigjenin në gjak. Pa hekur, qelizat nuk marrin oksigjenin e nevojshëm dhe shfaqet anemia. Rëndësia e tij është kritike për energjinë, vitalitetin dhe funksionimin e organeve.";
+ imgSrc = "Fe.jpg";        
+break;
+      case "Zn":
+        title = "Zink (Zn)";
+        info = "Zinku është i përfshirë në funksionimin e sistemit imunitar, shërimin e plagëve dhe aktivitetin e shumë enzimave. Ai përdoret për rritjen dhe zhvillimin normal. Rëndësia e tij qëndron në mbrojtjen e trupit nga infeksionet dhe në ruajtjen e shëndetit qelizor.";
+ imgSrc = "zinku.jpg";        
+break;
+      case "I":
+        title = "Jod (I)";
+        info = "Jodi përdoret për prodhimin e hormoneve të tiroides, të cilat kontrollojnë metabolizmin dhe energjinë e trupit. Pa jod, shfaqen çrregullime si gojët (zmadhohet gjëndra tiroide) dhe probleme me rritjen. Rëndësia e tij është e madhe për ekuilibrin hormonal dhe zhvillimin mendor.";
+ imgSrc = "I.jpg";        
+break;
+      case "Se":
+        title = "Selen (Se)";
+        info = "Seleni është një antioksidant i fuqishëm që mbron qelizat nga dëmtimet e shkaktuara nga radikalet e lira. Ai përdoret edhe për funksionimin e sistemit imunitar dhe shëndetin e tiroides. Rëndësia e tij është e lartë, sepse ndihmon në parandalimin e sëmundjeve dhe ruajtjen e mirëqenies afatgjatë.";
+ imgSrc = "Se.jpg";        
+break;
+     }
+
+  document.getElementById("traceTitle").innerText = title;
+  document.getElementById("traceInfo").innerText = info;
+  document.getElementById("traceImage").src = imgSrc;
+
+  document.getElementById("traceModal").style.display = "block";
+}
+
+function closeTraceModal() {
+  document.getElementById("traceModal").style.display = "none";
+}
+</script>
+</ul>
+<!-- Seksioni i kuizit -->
+<section id="quizSection">
+  <h2>Quiz</h2>
+  <div id="quizContainer">
+    <div class="question">
+      <p>1. Cili element është më i bollshëm në trupin e njeriut?</p>
+      <button onclick="checkAnswer(this, 'B')">A) Karbon</button>
+      <button onclick="checkAnswer(this, 'B')">B) Oksigjen</button>
+      <button onclick="checkAnswer(this, 'B')">C) Azot</button>
+      <button onclick="checkAnswer(this, 'B')">D) Hidrogjen</button>
+    </div>
+
+    <div class="question">
+      <p>2. Cili mineral është i domosdoshëm për ndërtimin e kockave?</p>
+      <button onclick="checkAnswer(this, 'A')">A) Kalcium</button>
+      <button onclick="checkAnswer(this, 'A')">B) Magnez</button>
+      <button onclick="checkAnswer(this, 'A')">C) Natrium</button>
+      <button onclick="checkAnswer(this, 'A')">D) Kalium</button>
+    </div>
+
+    <div class="question">
+      <p>3. Cili element gjurmë është i nevojshëm për hemoglobinë?</p>
+      <button onclick="checkAnswer(this, 'B')">A) Zink</button>
+      <button onclick="checkAnswer(this, 'B')">B) Hekur</button>
+      <button onclick="checkAnswer(this, 'B')">C) Jod</button>
+      <button onclick="checkAnswer(this, 'B')">D) Selen</button>
+    </div>
+
+    <!-- Pyetja e re 4 -->
+    <div class="question">
+      <p>4. Cili element është skeleti i të gjitha molekulave organike?</p>
+      <button onclick="checkAnswer(this, 'B')">A) Azot</button>
+      <button onclick="checkAnswer(this, 'B')">B) Karbon</button>
+      <button onclick="checkAnswer(this, 'B')">C) Oksigjen</button>
+      <button onclick="checkAnswer(this, 'B')">D) Hidrogjen</button>
+    </div>
+
+    <!-- Pyetja e re 5 -->
+    <div class="question">
+      <p>5. Cili element gjurmë është i domosdoshëm për prodhimin e hormoneve të tiroides?</p>
+      <button onclick="checkAnswer(this, 'A')">A) Jod</button>
+      <button onclick="checkAnswer(this, 'A')">B) Bakër</button>
+      <button onclick="checkAnswer(this, 'A')">C) Selen</button>
+      <button onclick="checkAnswer(this, 'A')">D) Zink</button>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Kuizi si footer */
+  #quizSection {
+    background-color: #2a5298; /* e njëjta ngjyrë si headeri */
+    color: white;
+    padding: 30px;
+    text-align: center;
+  }
+
+  #quizContainer {
+    max-width: 600px;
+    margin: auto;
+  }
+
+  .question {
+    margin-bottom: 20px;
+  }
+
+  .question p {
+    font-weight: bold;
+  }
+
+  .question button {
+    background-color: white;
+    color: #2a5298;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .question button:hover {
+    background-color: #ddd;
+  }
+
+  .correct {
+    background-color: #4CAF50 !important; /* jeshile */
+    color: white !important;
+  }
+
+  .wrong {
+    background-color: #f44336 !important; /* e kuqe */
+    color: white !important;
+  }
+</style>
+
+<script>
+  function checkAnswer(button, correctOption) {
+    if (button.innerText.startsWith(correctOption)) {
+      button.classList.add("correct");
+    } else {
+      button.classList.add("wrong");
+    }
+  }
+</script>
+
+
+</body>
+</html>
